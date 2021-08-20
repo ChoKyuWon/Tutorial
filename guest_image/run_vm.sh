@@ -4,7 +4,7 @@ VM_IMAGE="bionic-server-cloudimg-amd64.img"
 PW_IMAGE="user-data.img"
 
 # Default NR_CPU is number of physical cpu
-NR_CPU=$(expr `nproc` / 2)
+NR_CPU=$(expr `nproc` / `lscpu | grep "Thread(s) per core" | uniq | awk '{print $4}')
 
 # Default MEM_SIZE is half of total memory(MB).
 MEM_SIZE=$(grep MemTotal /proc/meminfo | awk '{print $2}')
